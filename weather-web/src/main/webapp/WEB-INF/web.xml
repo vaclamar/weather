@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>Archetype Created Web Application</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/weather-web.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <servlet>
+        <servlet-name>spring-ws</servlet-name>
+        <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+    </servlet>
+
+	<servlet>
+		<servlet-name>rest</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:/META-INF/rest-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+	</servlet>		
+	
+	<!-- Logback status -->
+  <servlet>
+    <servlet-name>ViewStatusMessages</servlet-name>
+    <servlet-class>ch.qos.logback.classic.ViewStatusMessagesServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>ViewStatusMessages</servlet-name>
+    <url-pattern>/logbackStatus</url-pattern>
+  </servlet-mapping>
+	
+    <servlet-mapping>
+        <servlet-name>spring-ws</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+		<servlet-name>rest</servlet-name>
+		<url-pattern>/weather/*</url-pattern>
+	</servlet-mapping>
+	
+ <filter>
+    <filter-name>TeeFilter</filter-name>
+    <filter-class>ch.qos.logback.access.servlet.TeeFilter</filter-class>
+  </filter>
+ 
+  <filter-mapping>
+    <filter-name>TeeFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+	
+    <!-- Index -->
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>
