@@ -1,7 +1,6 @@
 package com.tieto.homework.weather.client.impl;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
@@ -11,18 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.tieto.homework.weather.client.IWeatherClient;
+import com.tieto.homework.weather.client.ICacheWeatherClient;
 import com.tieto.homework.weather.dto.CityWeatherDTO;
 import com.tieto.homework.weather.mapper.WundergroundResponseMapper;
 import com.tieto.homework.wunderground.Response;
 
 
 @Component
-public class CachedWundergroundClient implements IWeatherClient {
+public class CachedWundergroundClient implements ICacheWeatherClient {
 
 	private static final Logger logger = LoggerFactory.getLogger(CachedWundergroundClient.class);	
 	
@@ -55,14 +53,7 @@ public class CachedWundergroundClient implements IWeatherClient {
 		return ret;
 	}
 	
-	//@Scheduled(initialDelayString="${service.cache.time.ms}", fixedDelayString="${service.cache.time.ms}" )
-	@Scheduled(initialDelay=1000, fixedDelay=50000 )
-	public void updateWundergroundCache() {		
-		for(Entry<String, String> city : cityMap.entrySet()) {
-			logger.debug(String.format("Call updateCityWeather for: %s %s ",city.getKey(), city.getValue()));
-			//updateCityWeather(city.getKey(), city.getValue());
-		}
-	}
+
 	
 	private CityWeatherDTO callCityWeather(String state,String city) /*throws ServerError*/ {
 
@@ -70,7 +61,7 @@ public class CachedWundergroundClient implements IWeatherClient {
 		
 		CityWeatherDTO result;
 		try {
-			Response wundergroundResponse = restTemplate.getForObject(serviceUrl, Response.class, serviceApiKey, "Czech", city);
+			Response wundergroundResponse = restTemplate.getForObject(serviceUrl, Response.class, serviceApiKey, state, city);
 			result = mapper.mapWundergroundResponse(wundergroundResponse, new CityWeatherDTO());
 		} catch (Exception ex) {
 			throw new RuntimeException("Call Wunderground FAILED!", ex);

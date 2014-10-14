@@ -6,11 +6,11 @@ import java.util.Collection;
 /**
  * Value object for storing request.
  */
-public class WeatherRequestVO {
+public class WeatherRequestDTO {
 	
 	private Collection<String> cities;
 
-	public WeatherRequestVO() {
+	public WeatherRequestDTO() {
 		this.cities = new ArrayList<String>();
 	}	
 	

@@ -1,10 +1,10 @@
 package com.tieto.homework.weather;
 
+import java.rmi.ServerError;
+
 import com.tieto.homework.weather.dto.CityWeatherDTO;
 
 public interface IWeatherService {
-
-	String test();
 	
 	/**
 	 * Method used for getting weather data.

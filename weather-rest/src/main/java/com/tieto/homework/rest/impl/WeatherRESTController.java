@@ -22,11 +22,11 @@ public class WeatherRESTController {
 		return "REST simple test";
 	}
 	
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	@ResponseBody
-	public String test() {		
-		return service.test();
-	}
+//	@RequestMapping(value="/test", method=RequestMethod.GET)
+//	@ResponseBody
+//	public String test() {		
+//		return service.test();
+//	}
 	
 	@RequestMapping(value="/weather/{city}", method=RequestMethod.GET)
 	@ResponseBody	

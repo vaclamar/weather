@@ -2,15 +2,13 @@ package com.tieto.homework.weather.impl;
 
 import java.util.Map;
 
-
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tieto.homework.weather.IWeatherService;
-import com.tieto.homework.weather.client.IWeatherClient;
+import com.tieto.homework.weather.client.ICacheWeatherClient;
 import com.tieto.homework.weather.dto.CityWeatherDTO;
 
 @Component
@@ -20,12 +18,7 @@ public class WeatherServiceImpl implements IWeatherService {
 	private Map<String, String> cityMap;
 	
 	@Autowired
-	private IWeatherClient weatherClient;
-	
-	@Override
-	public String test() {		
-		return "common service test";
-	}
+	private ICacheWeatherClient weatherClient;
 
 	@Override
 	public CityWeatherDTO getWeatherData(String city) {
