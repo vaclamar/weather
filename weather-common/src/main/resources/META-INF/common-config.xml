@@ -45,8 +45,7 @@
 		<property name="schema" value="classpath:/wunderground.xsd" />
 	</bean>
 	
-	<util:map id="cityMap" >
-		<entry key="ostrava" value="Czech"/>
+	<util:map id="cityMap" >		
 		<entry key="riga" value="Latvia"/>
 		<entry key="vilnius" value="Lithuania"/>
 		<entry key="helsinki" value="Finland"/>

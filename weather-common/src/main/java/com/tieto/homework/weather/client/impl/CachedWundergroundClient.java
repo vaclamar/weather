@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.tieto.homework.weather.client.ICacheWeatherClient;
 import com.tieto.homework.weather.dto.CityWeatherDTO;
+import com.tieto.homework.weather.exception.ErrorCodes;
+import com.tieto.homework.weather.exception.ServerException;
 import com.tieto.homework.weather.mapper.WundergroundResponseMapper;
 import com.tieto.homework.wunderground.Response;
 
@@ -64,7 +66,7 @@ public class CachedWundergroundClient implements ICacheWeatherClient {
 			Response wundergroundResponse = restTemplate.getForObject(serviceUrl, Response.class, serviceApiKey, state, city);
 			result = mapper.mapWundergroundResponse(wundergroundResponse, new CityWeatherDTO());
 		} catch (Exception ex) {
-			throw new RuntimeException("Call Wunderground FAILED!", ex);
+			throw new ServerException(ErrorCodes.WUNDERGROUND_CALL_FAILED, "Call Wunderground FAILED!", ex);
 		}
 		
 		logger.debug(String.format("Successfully fetched data from Wunderground: %s %s",state,city));

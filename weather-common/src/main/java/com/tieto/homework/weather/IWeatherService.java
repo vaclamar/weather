@@ -1,8 +1,10 @@
 package com.tieto.homework.weather;
 
 import java.rmi.ServerError;
+import java.util.List;
 
 import com.tieto.homework.weather.dto.CityWeatherDTO;
+import com.tieto.homework.weather.exception.ClientException;
 
 public interface IWeatherService {
 	
@@ -14,4 +16,5 @@ public interface IWeatherService {
 	 * @throws ServerError
 	 */
 	CityWeatherDTO getWeatherData(String city);
+	List<CityWeatherDTO> getAllWeatherData();
 }
