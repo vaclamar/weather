@@ -20,6 +20,10 @@
     	<groupId>com.tieto.homework</groupId>
     	<artifactId>weather-rest</artifactId>
     </dependency>
+    <dependency>
+    	<groupId>com.tieto.homework</groupId>
+    	<artifactId>weather-soap</artifactId>
+    </dependency>
 	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>javax.servlet-api</artifactId>
