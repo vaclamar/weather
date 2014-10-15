@@ -1,9 +1,5 @@
 package com.tieto.homework.weather.client.impl;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +22,8 @@ public class CachedWundergroundClient implements ICacheWeatherClient {
 
 	private static final Logger logger = LoggerFactory.getLogger(CachedWundergroundClient.class);	
 	
-	@Resource(name="cityMap")
-	private Map<String, String> cityMap;
+//	@Resource(name="cityMap")
+//	private Map<String, String> cityMap;
 	
 	@Value("${service.api.key}")	
 	private String serviceApiKey;
