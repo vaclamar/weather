@@ -28,6 +28,10 @@
 			    <artifactId>spring-security-web</artifactId>
 			</dependency>
 			
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	</dependency>
   	<dependency>
     	<groupId>com.tieto.homework</groupId>
     	<artifactId>weather-common</artifactId>
@@ -36,5 +40,23 @@
 		<groupId>org.codehaus.jackson</groupId>
 		<artifactId>jackson-mapper-asl</artifactId>
 	</dependency>
+	   		<!-- Unit test  -->
+		<dependency>
+			    <groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.ws</groupId>
+		    <artifactId>spring-ws-test</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.kubek2k</groupId>
+		    <artifactId>springockito</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.kubek2k</groupId>
+		    <artifactId>springockito-annotations</artifactId>
+		</dependency>
   </dependencies>
 </project>
