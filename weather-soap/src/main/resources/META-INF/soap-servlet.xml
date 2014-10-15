@@ -25,5 +25,6 @@
 		</bean>
 	</sws:interceptors>
 			
-	<import resource="classpath:/META-INF/common-config.xml"/>	
+	<import resource="classpath:/META-INF/common-config.xml"/>
+	<import resource="classpath:/META-INF/job-config.xml"/>	
 </beans>

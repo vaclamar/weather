@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.kubek2k.springockito.annotations.ReplaceWithMock;
 import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -20,12 +21,22 @@ import com.tieto.homework.weather.dto.CityWeatherDTO;
 import com.tieto.homework.wunderground.Response;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = SpringockitoContextLoader.class, locations = {"classpath:common-test-config.xml"})
+@ContextConfiguration(loader = SpringockitoContextLoader.class, locations = {"classpath:META-INF/common-config.xml"})
 public class CachedWundergroundClientTest {
 
     @Autowired
     private ICacheWeatherClient cacheClient;
     
+    /**
+     * we don't need it for this test
+     */
+    @Autowired
+    @ReplaceWithMock	
+    private Jaxb2Marshaller xmlMarshaller;
+    
+    /**
+     * This is mocked
+     */
     @Autowired
     @ReplaceWithMock
 	private RestTemplate restTemplate;

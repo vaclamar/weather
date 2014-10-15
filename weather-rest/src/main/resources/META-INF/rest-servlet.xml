@@ -22,4 +22,5 @@
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver"/>
 <!--      <context:component-scan base-package="com.tieto.homework.weather"/> -->
      <import resource="classpath:/META-INF/common-config.xml"/>
+     <import resource="classpath:/META-INF/job-config.xml"/>
 </beans>
