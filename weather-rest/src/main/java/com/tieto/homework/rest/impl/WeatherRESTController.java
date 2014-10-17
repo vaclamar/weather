@@ -1,8 +1,11 @@
 package com.tieto.homework.rest.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,7 @@ import com.tieto.homework.weather.IWeatherService;
 import com.tieto.homework.weather.dto.CityWeatherDTO;
 import com.tieto.homework.weather.exception.ClientException;
 import com.tieto.homework.weather.exception.ErrorCodes;
+import com.tieto.homework.weather.exception.ServerException;
 
 @Controller
 public class WeatherRESTController {
@@ -57,10 +61,25 @@ public class WeatherRESTController {
 		return ret;
 	}
 	
-//	@ExceptionHandler(ClientException.class)	
-//	public ResponseEntity<String> handleException(ClientException e) {
-//		logger.error("My ClientException",e);
-//		ResponseEntity<String> response = new ResponseEntity<String>(HTTP_CODE_MAPPING.get(e.getErrorCode()));
-//	    return response;
-//	}
+	@ExceptionHandler(ClientException.class)
+	public ResponseEntity<String> handleException(ClientException e) {
+		logger.debug("ClientException handled",e);
+		ResponseEntity<String> response = new ResponseEntity<String>(ErrorCodes.MSG.get(e.getErrorCode()), HTTP_CODE_MAPPING.get(e.getErrorCode()));		
+	    return response;
+	}
+	
+	@ExceptionHandler(ServerException.class)
+	public ResponseEntity<String> handleException(ServerException e) {
+		logger.debug("ServerException handled",e);
+		ResponseEntity<String> response;
+		if(logger.isDebugEnabled()) {
+			response = new ResponseEntity<String>("Unexpected problem on the server. Please, try it later or conntact support", HTTP_CODE_MAPPING.get(e.getErrorCode()));
+		} else {
+			response = new ResponseEntity<String>(ErrorCodes.MSG.get(e.getErrorCode()), HTTP_CODE_MAPPING.get(e.getErrorCode()));
+		}
+	    return response;
+	}
+		
+
+
 }
