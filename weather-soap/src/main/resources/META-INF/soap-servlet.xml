@@ -24,6 +24,16 @@
 		    <property name="validateResponse" value="false"/>
 		</bean>
 	</sws:interceptors>
+	
+	<bean id="exceptionResolver"
+        class="org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver">
+        <property name="defaultFault" value="SERVER"/>
+        <property name="exceptionMappings">            
+        	<props>
+        		<prop key="com.tieto.homework.weather.exception.ClientException" >CLIENT</prop>
+        	</props>
+        </property>
+    </bean>
 			
 	<import resource="classpath:/META-INF/common-config.xml"/>
 	<import resource="classpath:/META-INF/job-config.xml"/>	
