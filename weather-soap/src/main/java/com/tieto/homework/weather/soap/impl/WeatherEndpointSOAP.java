@@ -37,9 +37,6 @@ public class WeatherEndpointSOAP {
 	@Autowired
 	private CityWeatherTypeMapper cityWeatherMapper;
 	
-	@Resource(name="cityMap")
-	private Map<String, String> cityMap;
-	
 	@Autowired
 	private IWeatherService service;	
 	
@@ -56,15 +53,14 @@ public class WeatherEndpointSOAP {
 	@ResponsePayload	
 	public WeatherResponse handleWeatherRequest(@RequestPayload WeatherRequest weatherRequest) /*throws ServerException , ClientException */{
 		
-		List<CityWeatherDTO> response = new ArrayList<CityWeatherDTO>();
+		List<CityWeatherDTO> response;
 		WeatherResponse result;
 		
 		if(weatherRequest.getCity().isEmpty()) {
 			LoggerFactory.getLogger(WeatherEndpointSOAP.class).info("SOAP Request for all cities.");
-			for (String city : cityMap.keySet()) {				
-				response.add(service.getWeatherData(city));
-			}
+			response = service.getAllWeatherData();
 		} else {
+			response = new ArrayList<CityWeatherDTO>();
 			LoggerFactory.getLogger(WeatherEndpointSOAP.class).info("SOAP Request for city: " + weatherRequest.getCity());
 			for (String city : weatherRequest.getCity()) {
 				response.add(service.getWeatherData(city));				
