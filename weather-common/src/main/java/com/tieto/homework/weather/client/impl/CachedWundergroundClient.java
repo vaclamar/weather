@@ -38,10 +38,9 @@ public class CachedWundergroundClient implements ICacheWeatherClient {
 	private WundergroundResponseMapper mapper;
 	
 	@Cacheable("cityWeather")
-	public CityWeatherDTO getCityWeather(String state,String city) {
-		CityWeatherDTO ret;
-		ret = callCityWeather(state, city);
-		return ret;
+	public CityWeatherDTO getCityWeather(String state,String city) {		
+		logger.error(String.format("Cache does not contain city %s %s", state, city));
+		throw new ServerException(ErrorCodes.NOT_SUPPORTED_CITY, ErrorCodes.MSG.get(ErrorCodes.NOT_SUPPORTED_CITY));
 	}
 	
 	@CachePut("cityWeather")

@@ -73,9 +73,9 @@ public class WeatherRESTController {
 		logger.debug("ServerException handled",e);
 		ResponseEntity<String> response;
 		if(logger.isDebugEnabled()) {
-			response = new ResponseEntity<String>("Unexpected problem on the server. Please, try it later or conntact support", HTTP_CODE_MAPPING.get(e.getErrorCode()));
+			response = new ResponseEntity<String>(ErrorCodes.MSG.get(e.getErrorCode()), HTTP_CODE_MAPPING.get(e.getErrorCode()));	
 		} else {
-			response = new ResponseEntity<String>(ErrorCodes.MSG.get(e.getErrorCode()), HTTP_CODE_MAPPING.get(e.getErrorCode()));
+			response = new ResponseEntity<String>("Unexpected problem on the server. Please, try it later or conntact support", HTTP_CODE_MAPPING.get(e.getErrorCode()));
 		}
 	    return response;
 	}

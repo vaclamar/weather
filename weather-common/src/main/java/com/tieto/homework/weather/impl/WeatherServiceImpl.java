@@ -33,7 +33,7 @@ public class WeatherServiceImpl implements IWeatherService {
 	public CityWeatherDTO getWeatherData(String city) {
 		if(cityMap.containsKey(city.toLowerCase())) {
 			String state = cityMap.get(city.toLowerCase());
-			return weatherClient.getCityWeather(state, city);
+			return weatherClient.getCityWeather(state, city.toLowerCase());
 		} else {
 			throw new ClientException(ErrorCodes.NOT_SUPPORTED_CITY, String.format("Unsupported city %s", city));
 		}
