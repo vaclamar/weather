@@ -3,8 +3,6 @@ package com.tieto.homework.weather.impl;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.util.HashMap;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +10,8 @@ import org.kubek2k.springockito.annotations.ReplaceWithMock;
 import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +22,7 @@ import com.tieto.homework.wunderground.Response;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = SpringockitoContextLoader.class, locations = {"classpath:META-INF/common-config.xml"})
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class CachedWundergroundClientTest {
 
     @Autowired
@@ -45,12 +46,8 @@ public class CachedWundergroundClientTest {
 	
 	@Before
 	public void setUp() throws Exception {
-	   	HashMap<String, String> citiesMap = new HashMap<String, String>();
-    	citiesMap.put("Ostrava", "Czech");
-    	citiesMap.put("Oslo", "Norway");    		   
     	URI = "http://api.wunderground.com/api/{service.api.key}/conditions/q/{country}/{city}.xml";
     	apikey = "a416203bf3090107";
-    	
     	Response response = mock(Response.class, RETURNS_DEEP_STUBS);
     	
     	when(response.getCurrentObservation().getDisplayLocation().getFull()).thenReturn("Ostrava");
@@ -69,7 +66,6 @@ public class CachedWundergroundClientTest {
 		String state = "Czech";
     	String city = "Ostrava";
     	CityWeatherDTO weatherData = cacheClient.getCityWeather(state, city);
-    	
     	assertEquals("Ostrava", weatherData.getLocation());
     	assertEquals("40%", weatherData.getRelativeHumidity());
     	assertEquals(Double.valueOf(21), weatherData.getTemperatureCelsius());

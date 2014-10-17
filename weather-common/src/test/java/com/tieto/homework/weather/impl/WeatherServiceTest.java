@@ -13,17 +13,21 @@ import org.kubek2k.springockito.annotations.ReplaceWithMock;
 import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import com.tieto.homework.weather.IWeatherService;
-import com.tieto.homework.weather.client.ICacheWeatherClient;
+import com.tieto.homework.weather.dto.CityMapFactory;
 import com.tieto.homework.weather.dto.CityWeatherDTO;
+import com.tieto.homework.weather.exception.ClientException;
 import com.tieto.homework.wunderground.Response;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = SpringockitoContextLoader.class, locations = {"classpath:META-INF/common-config.xml"})
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class WeatherServiceTest {
 
     @Autowired
@@ -43,43 +47,55 @@ public class WeatherServiceTest {
     @ReplaceWithMock
 	private RestTemplate restTemplate;
     
+    /**
+     * This is mocked
+     */
+    @Autowired
+    @ReplaceWithMock
+	private CityMapFactory cityMapFactory;
+    
     private String URI;
     private String apikey;
 	
 	@Before
-	public void setUp() throws Exception {   		   
+	public void setUp() throws Exception {
+	   	HashMap<String, String> citiesMap = new HashMap<String, String>();
+    	citiesMap.put("ostrava", "Czech");
+    	citiesMap.put("rome", "Italy"); 
+		
     	URI = "http://api.wunderground.com/api/{service.api.key}/conditions/q/{country}/{city}.xml";
     	apikey = "a416203bf3090107";
     	
     	Response response = mock(Response.class, RETURNS_DEEP_STUBS);
     	
-    	when(response.getCurrentObservation().getDisplayLocation().getFull()).thenReturn("Riga");
+    	when(response.getCurrentObservation().getDisplayLocation().getFull()).thenReturn("Ostrava");
     	when(response.getCurrentObservation().getRelativeHumidity()).thenReturn("40%");
     	when(response.getCurrentObservation().getTempC()).thenReturn("21");
     	when(response.getCurrentObservation().getWeather()).thenReturn("Clear");
     	when(response.getCurrentObservation().getWindDir()).thenReturn("NNW");
     	when(response.getCurrentObservation().getWindString()).thenReturn("Calm");
     	
-    	when(restTemplate.getForObject(URI, Response.class, apikey, "Latvia", "riga")).thenReturn(response);
+    	when(restTemplate.getForObject(URI, Response.class, apikey, "Czech", "ostrava")).thenReturn(response);
     	
     	Response response2 = mock(Response.class, RETURNS_DEEP_STUBS);
     	
-    	when(response2.getCurrentObservation().getDisplayLocation().getFull()).thenReturn("Helsinki");
+    	when(response2.getCurrentObservation().getDisplayLocation().getFull()).thenReturn("Rome");
     	when(response2.getCurrentObservation().getRelativeHumidity()).thenReturn("40%");
     	when(response2.getCurrentObservation().getTempC()).thenReturn("21");
     	when(response2.getCurrentObservation().getWeather()).thenReturn("Clear");
     	when(response2.getCurrentObservation().getWindDir()).thenReturn("NNW");
     	when(response2.getCurrentObservation().getWindString()).thenReturn("Calm");
     	
-    	when(restTemplate.getForObject(URI, Response.class, apikey, "Finland", "helsinki")).thenReturn(response2);	
+    	when(restTemplate.getForObject(URI, Response.class, apikey, "Italy", "rome")).thenReturn(response2);
+    	
+    	when(cityMapFactory.getCityMap()).thenReturn(citiesMap);
 	}
 
 	@Test
 	public void testGetWeatherData() {
-    	String city = "riga";
+    	String city = "rome";
     	CityWeatherDTO weatherData = service.getWeatherData(city);
-    	
-    	assertEquals("Riga", weatherData.getLocation());
+    	assertEquals("Rome", weatherData.getLocation());
     	assertEquals("40%", weatherData.getRelativeHumidity());
     	assertEquals(Double.valueOf(21), weatherData.getTemperatureCelsius());
     	assertEquals("Clear", weatherData.getWeather());
@@ -87,12 +103,17 @@ public class WeatherServiceTest {
     	assertEquals("Calm", weatherData.getWindString());
 	}
 	
+    @Test(expected = ClientException.class)
+	public void testGetWeatherDataUnsupported() {
+    	String city = "wien";
+    	service.getWeatherData(city);    	
+	}
+	
 	@Test
-	public void testGetWeatherData2() {
+	public void testGetAllWeatherData() {
     	List<CityWeatherDTO> weatherDataList = service.getAllWeatherData();
-    	assertEquals(2, weatherDataList.size()); //TODO do mock of city list
+    	assertEquals(2, weatherDataList.size());
     	for(CityWeatherDTO weatherData : weatherDataList) {
-	    	//assertEquals("Riga", weatherData.getLocation());
 	    	assertEquals("40%", weatherData.getRelativeHumidity());
 	    	assertEquals(Double.valueOf(21), weatherData.getTemperatureCelsius());
 	    	assertEquals("Clear", weatherData.getWeather());

@@ -45,9 +45,9 @@
 	
 	<util:map id="cityMap" >		
 		<entry key="riga" value="Latvia"/>
-<!-- 		<entry key="vilnius" value="Lithuania"/> -->
+		<entry key="vilnius" value="Lithuania"/>
 		<entry key="helsinki" value="Finland"/>
-<!-- 		<entry key="tallinn" value="Estonia"/>		 -->
+		<entry key="tallinn" value="Estonia"/>		
 	</util:map>
 	
 <!-- 	<task:scheduled-tasks> -->
