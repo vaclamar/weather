@@ -1,5 +1,7 @@
 package com.tieto.homework.weather.soap.impl;
 
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -75,9 +77,10 @@ public class WeatherEndpointSOAPTest {
 	@Test
 	public void testGetWeatherData2() {
     	List<CityWeatherDTO> weatherDataList = service.getAllWeatherData();
-    	assertEquals(2, weatherDataList.size()); //TODO do mock of city list
+    	assertEquals(2, weatherDataList.size());
     	for(CityWeatherDTO weatherData : weatherDataList) {
-	    	//assertEquals("Riga", weatherData.getLocation());
+    		assertThat(weatherData.getLocation(), anyOf(is("Riga"), is("Helsinki")));
+	    	assertEquals(weatherData.getLocation(), weatherData.getLocation());
 	    	assertEquals("40%", weatherData.getRelativeHumidity());
 	    	assertEquals(Double.valueOf(21), weatherData.getTemperatureCelsius());
 	    	assertEquals("Clear", weatherData.getWeather());

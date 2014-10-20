@@ -4,7 +4,6 @@ import java.rmi.ServerError;
 import java.util.List;
 
 import com.tieto.homework.weather.dto.CityWeatherDTO;
-import com.tieto.homework.weather.exception.ClientException;
 
 public interface IWeatherService {
 	

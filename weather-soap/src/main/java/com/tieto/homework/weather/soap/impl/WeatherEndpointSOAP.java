@@ -3,9 +3,6 @@ package com.tieto.homework.weather.soap.impl;
 import java.rmi.ServerError;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

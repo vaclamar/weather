@@ -75,7 +75,7 @@ public class WeatherRestControllerTest {
 	@Test
 	public void testGetWeatherData2() {
     	List<CityWeatherDTO> weatherDataList = service.getAllWeatherData();
-    	assertEquals(2, weatherDataList.size()); //TODO do mock of city list
+    	assertEquals(2, weatherDataList.size()); 
     	for(CityWeatherDTO weatherData : weatherDataList) {
 	    	//assertEquals("Riga", weatherData.getLocation());
 	    	assertEquals("40%", weatherData.getRelativeHumidity());
