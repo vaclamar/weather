@@ -1,62 +1,63 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.tieto.homework</groupId>
-    <artifactId>weather</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>weather-rest</artifactId>
-  <name>REST weather service</name>
-  <description>REST interface for weather service</description>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.springframework.ws</groupId>
-  		<artifactId>spring-ws-core</artifactId>
-  	</dependency>
-  	
-  	<!-- Security -->
-  				<dependency>
-			    <groupId>org.springframework.security</groupId>
-			    <artifactId>spring-security-core</artifactId>
-			</dependency>
-			<dependency>
-			    <groupId>org.springframework.security</groupId>
-			    <artifactId>spring-security-config</artifactId>
-			</dependency>
-			<dependency>
-			    <groupId>org.springframework.security</groupId>
-			    <artifactId>spring-security-web</artifactId>
-			</dependency>
-			
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>javax.servlet-api</artifactId>
-	</dependency>
-  	<dependency>
-    	<groupId>com.tieto.homework</groupId>
-    	<artifactId>weather-common</artifactId>
-    </dependency>
-    <dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-mapper-asl</artifactId>
-	</dependency>
-	   		<!-- Unit test  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tieto.homework</groupId>
+		<artifactId>weather</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>weather-rest</artifactId>
+	<name>REST weather service</name>
+	<description>REST interface for weather service</description>
+	<dependencies>
+		<!-- Modules -->
 		<dependency>
-			    <groupId>junit</groupId>
-				<artifactId>junit</artifactId>
+			<groupId>com.tieto.homework</groupId>
+			<artifactId>weather-common</artifactId>
+		</dependency>
+		<!-- Spring WS -->
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.ws</groupId>
-		    <artifactId>spring-ws-test</artifactId>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
 		</dependency>
-		
+		<!-- Security -->
 		<dependency>
-		    <groupId>org.kubek2k</groupId>
-		    <artifactId>springockito</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.kubek2k</groupId>
-		    <artifactId>springockito-annotations</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
 		</dependency>
-  </dependencies>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<!-- Unit test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kubek2k</groupId>
+			<artifactId>springockito</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kubek2k</groupId>
+			<artifactId>springockito-annotations</artifactId>
+		</dependency>
+	</dependencies>
 </project>
