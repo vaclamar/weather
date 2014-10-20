@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
- 
-  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-    <resetJUL>true</resetJUL>
-  </contextListener>
- 
-  <!-- To enable JMX Management -->
-  <jmxConfigurator/>
- 
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%.-1level|%-40.40logger{0}|%msg%n</pattern>
-    </encoder>
-  </appender>
-  
-  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+	<!-- To enable JMX Management -->
+	<jmxConfigurator />
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%.-1level|%-40.40logger{0}|%msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>logs/homework.log</file>
 		<append>false</append>
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] [%class{40}:%line] %msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread]
+				[%class{40}:%line] %msg%n</pattern>
 		</encoder>
 	</appender>
- 
-  <logger name="com.tieto.homework" level="debug" />
-  <logger name="org.springframework" level="info" />
-  <logger name="org.springframework.beans" level="info" />
-  <logger name="org.eclipse" level="info" />
- 
-  <root level="info">
-    <appender-ref ref="CONSOLE" />
-    <appender-ref ref="FILE" />
-  </root>
+	<logger name="com.tieto.homework" level="debug" />
+	<logger name="org.springframework" level="info" />
+	<logger name="org.springframework.beans" level="info" />
+	<logger name="org.eclipse" level="info" />
+	<root level="info">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
 </configuration>
