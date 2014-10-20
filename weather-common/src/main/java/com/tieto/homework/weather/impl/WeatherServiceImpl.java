@@ -16,20 +16,26 @@ import com.tieto.homework.weather.dto.CityMapFactory;
 import com.tieto.homework.weather.exception.ClientException;
 import com.tieto.homework.weather.exception.ErrorCodes;
 
+/**
+ * Weather service implementation
+ * 
+ * @author vaclbmar
+ *
+ */
 @Component
 public class WeatherServiceImpl implements IWeatherService {
 
 	private static final Logger logger = LoggerFactory.getLogger(WeatherServiceImpl.class);
-	
-	@Autowired	
+
+	@Autowired
 	private CityMapFactory cityMapFactory;
-	
+
 	@Autowired
 	private ICacheWeatherClient weatherClient;
 
 	@Override
 	public CityWeatherDTO getWeatherData(String city) {
-		if(cityMapFactory.getCityMap().containsKey(city.toLowerCase())) {
+		if (cityMapFactory.getCityMap().containsKey(city.toLowerCase())) {
 			String state = cityMapFactory.getCityMap().get(city.toLowerCase());
 			return weatherClient.getCityWeather(state, city.toLowerCase());
 		} else {
@@ -40,14 +46,11 @@ public class WeatherServiceImpl implements IWeatherService {
 	@Override
 	public List<CityWeatherDTO> getAllWeatherData() {
 		List<CityWeatherDTO> ret = new ArrayList<CityWeatherDTO>();
-		for(Entry<String, String> city : cityMapFactory.getCityMap().entrySet()) {
-			logger.debug(String.format("Call updateCityWeather for: %s %s ",city.getKey(), city.getValue()));
+		for (Entry<String, String> city : cityMapFactory.getCityMap().entrySet()) {
+			logger.debug(String.format("Call updateCityWeather for: %s %s ", city.getKey(), city.getValue()));
 			CityWeatherDTO weather = weatherClient.getCityWeather(city.getValue(), city.getKey());
 			ret.add(weather);
 		}
 		return ret;
 	}
-	
-	
-	
 }

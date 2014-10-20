@@ -20,53 +20,47 @@ import com.tieto.homework.weather.dto.CityWeatherDTO;
 /**
  * Endpoint for SOAP calls.
  */
-//@Controller
 @Endpoint
 public class WeatherEndpointSOAP {
 
 	private static final Logger logger = LoggerFactory.getLogger(WeatherEndpointSOAP.class);
-	
+
 	private static final String NAMESPACE_URI = "http://weather.homework.tieto.com/schemas";
-	
+
 	@Autowired
 	private WeatherResponseMapper responseMapper;
-	
+
 	@Autowired
-	private CityWeatherTypeMapper cityWeatherMapper;
-	
-	@Autowired
-	private IWeatherService service;	
-	
+	private IWeatherService service;
+
 	/**
-	 * Endpoint method for getting weather data.
-	 * If empty city list is provided in request then are returned data for supported cities.
+	 * Endpoint method for getting weather data. If empty city list is provided
+	 * in request then are returned data for supported cities.
 	 * 
-	 * @param weatherRequest Contains list of cities.
+	 * @param weatherRequest
+	 *            Contains list of cities.
 	 * @return Weather data for cities from request or for supported cities.
-	 * @throws ServerError 
-	 * @throws ClientError 
+	 * @throws ServerError
+	 * @throws ClientError
 	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "WeatherRequest")
-	@ResponsePayload	
-	public WeatherResponse handleWeatherRequest(@RequestPayload WeatherRequest weatherRequest) /*throws ServerException , ClientException */{
-		
+	@ResponsePayload
+	public WeatherResponse handleWeatherRequest(@RequestPayload WeatherRequest weatherRequest) {
 		List<CityWeatherDTO> response;
 		WeatherResponse result;
-		
-		if(weatherRequest.getCity().isEmpty()) {
+
+		if (weatherRequest.getCity().isEmpty()) {
 			LoggerFactory.getLogger(WeatherEndpointSOAP.class).info("SOAP Request for all cities.");
 			response = service.getAllWeatherData();
 		} else {
 			response = new ArrayList<CityWeatherDTO>();
 			LoggerFactory.getLogger(WeatherEndpointSOAP.class).info("SOAP Request for city: " + weatherRequest.getCity());
 			for (String city : weatherRequest.getCity()) {
-				response.add(service.getWeatherData(city));				
+				response.add(service.getWeatherData(city));
 			}
 		}
 		result = responseMapper.mapWeatherResponse(response, new WeatherResponse());
-		
 		logger.info("SOAP Request completed.");
-		
 		return result;
-	}	
+	}
 }

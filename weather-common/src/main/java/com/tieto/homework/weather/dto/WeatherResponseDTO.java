@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Value object for storing response.
+ * DTO for storing response.
  */
 public class WeatherResponseDTO {
 

@@ -1,11 +1,10 @@
 package com.tieto.homework.weather.dto;
 
-
 /**
- * Value object for storing city weather informations.
+ * DTO for storing city weather informations.
  */
 public class CityWeatherDTO {
-	
+
 	private String location;
 	private Double temperatureCelsius;
 	private String relativeHumidity;
@@ -69,5 +68,5 @@ public class CityWeatherDTO {
 	public void setWeatherDate(String weatherDate) {
 		this.weatherDate = weatherDate;
 	}
-		
+
 }

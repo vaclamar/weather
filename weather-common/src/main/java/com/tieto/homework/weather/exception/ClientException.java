@@ -1,9 +1,15 @@
 package com.tieto.homework.weather.exception;
 
+/**
+ * Client exception for service.
+ * 
+ * @author vaclbmar
+ *
+ */
 public class ClientException extends RuntimeException {
 
 	private static final long serialVersionUID = 1472259044279851288L;
-	
+
 	private int errorCode;
 
 	public ClientException(int errorCode) {
@@ -15,7 +21,6 @@ public class ClientException extends RuntimeException {
 		super(message);
 		this.errorCode = errorCode;
 	}
-
 
 	public int getErrorCode() {
 		return errorCode;

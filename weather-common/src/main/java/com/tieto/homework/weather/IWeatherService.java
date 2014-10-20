@@ -1,19 +1,29 @@
 package com.tieto.homework.weather;
 
-import java.rmi.ServerError;
 import java.util.List;
 
 import com.tieto.homework.weather.dto.CityWeatherDTO;
 
+/**
+ * Weather service java interface
+ * 
+ * @author vaclbmar
+ */
 public interface IWeatherService {
-	
+
 	/**
-	 * Method used for getting weather data.
+	 * Gets weather data for city
 	 * 
-	 * @param city City for weather data fetch.
+	 * @param city
+	 *            city name for weather data fetch. Case insensitive.
 	 * @return Weather data for city from request.
-	 * @throws ServerError
 	 */
 	CityWeatherDTO getWeatherData(String city);
+
+	/**
+	 * Gets weather data for all supported cities.
+	 * 
+	 * @return weather data for all supported cities.
+	 */
 	List<CityWeatherDTO> getAllWeatherData();
 }
