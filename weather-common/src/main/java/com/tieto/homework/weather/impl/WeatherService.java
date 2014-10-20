@@ -23,9 +23,9 @@ import com.tieto.homework.weather.exception.ErrorCodes;
  *
  */
 @Component
-public class WeatherServiceImpl implements IWeatherService {
+public class WeatherService implements IWeatherService {
 
-	private static final Logger logger = LoggerFactory.getLogger(WeatherServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
 	@Autowired
 	private CityMapFactory cityMapFactory;
