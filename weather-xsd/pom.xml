@@ -10,7 +10,7 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>src/main/XSD</directory>
+				<directory>src/main/xsd</directory>
 			</resource>
 		</resources>
 		<plugins>

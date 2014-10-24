@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-workspace name="Weather" soapui-version="5.0.0" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-workspace name="Weather" soapui-version="5.0.0" projectRoot="${workspaceDir}" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:project name="RESTWeather">C:/devel/homework/weather/soapui/RESTWeather-soapui-project.xml</con:project>
-  <con:project name="SOAPWeather">C:/devel/homework/weather/soapui/SOAPWeather-soapui-project.xml</con:project>
+  <con:project name="SOAPWeather">SOAPWeather-soapui-project.xml</con:project>
+  <con:project name="RESTWeather">RESTWeather-soapui-project.xml</con:project>
 </con:soapui-workspace>
